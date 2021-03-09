@@ -4,6 +4,12 @@
     <title>Real time sentiment analysis</title>
   </head>
   <body>
-    
+    <script type="text/javascript" src="/faye/client.js"></script>
+    <script type="text/javascript">
+      var client = new Faye.Client('/faye');
+      var subscription = client.subscribe('/updates', function(message) {
+        console.log(message);
+      });
+    </script>
   </body>
 </html>
