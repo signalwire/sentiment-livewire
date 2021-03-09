@@ -1,4 +1,3 @@
-const WebSocket = require('ws')
 const Speech = require('@google-cloud/speech').v1p1beta1
 const { Writable } = require('stream')
 
@@ -176,10 +175,17 @@ function setupNewClient(wsClient) {
   })
 }
 
-const wsServer = new WebSocket.Server({
-  port: process.env.PORT || 5000,
-})
+let WSServer = require('ws').Server;
+let server = require('http').createServer();
+let app = require('./lib/web');
 
-wsServer.on('connection', setupNewClient)
+let wsInstance = new WSServer({
+  server: server
+});
 
-console.log('WebSocket Ready!')
+server.on('request', app);
+wsInstance.on('connection', setupNewClient)
+
+server.listen(process.env.PORT || 5000, function() {
+  console.log("http/ws server listening");
+});
