@@ -4,7 +4,8 @@ let app = require('./lib/web');
 let setupNewClient = require('./lib/asr');
 
 let wsInstance = new WSServer({
-  server: server
+  server: server,
+  path: "/asr"
 });
 
 server.on('request', app);

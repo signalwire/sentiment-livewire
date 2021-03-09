@@ -9,6 +9,7 @@
   "author": "Luca Pradovera",
   "license": "ISC",
   "dependencies": {
+    "@google-cloud/language": "^4.2.2",
     "@google-cloud/speech": "^4.2.0",
     "express": "^4.17.1",
     "memory-streams": "^0.1.3",
