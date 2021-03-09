@@ -1,0 +1,17 @@
+{
+  "name": "sentiment-livewire",
+  "version": "1.0.0",
+  "description": "ASR demo with SignalWire Relay",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Luca Pradovera",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/speech": "^4.2.0",
+    "memory-streams": "^0.1.3",
+    "node-fetch": "^2.6.1",
+    "ws": "^7.4.4"
+  }
+}
