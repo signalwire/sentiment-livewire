@@ -26,17 +26,17 @@
     <script type="text/javascript" src="/faye/client.js"></script>
     <script type="text/javascript">
       function handleStart(message) {
-        var card = createCard('Start', message.streamSid);
+        var card = createCard('Start');
         document.getElementById('output').appendChild(card);
       }
 
       function handleStop(message) {
-        var card = createCard('Stop', message.streamSid);
+        var card = createCard('Stop');
         document.getElementById('output').appendChild(card);
       }
 
       function handleMedia(message) {
-        var card = createCard('Media', message.streamSid);
+        var card = createCard('Media');
 
         var cardBody = document.createElement("div");
         cardBody.className = 'card-body';
@@ -64,13 +64,13 @@
         document.getElementById('output').appendChild(card);
       }
 
-      function createCard(title, streamSid) {
+      function createCard(title) {
         var newDiv = document.createElement("div");
         newDiv.className = 'card';
         
         var cardTitle = document.createElement("h5");
         cardTitle.className = 'card-header';
-        cardTitle.innerText = title + '(#' + streamSid + ')';
+        cardTitle.innerText = title;
         newDiv.appendChild(cardTitle);
 
         return newDiv;
