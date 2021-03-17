@@ -16,13 +16,15 @@ const consumer = new RelayConsumer({
     await call.answer()
 
     const params = {
-      audio_direction: 'both',
+      audio_direction: 'speak',
       target_type: 'ws',
       target_uri: process.env.TAP_ADDRESS
     }
 
     console.log('calling tap with ' + util.inspect(params))
-    const tapResult = await call.tap(params)
+    const tapResult = await call.tapAsync(params)
+    const connectResult = await call.connect({ type: 'phone', to: process.env.DESTINATION_NUMBER, timeout: 30 })
+    await connectResult.call.waitForEnding()
 
     await call.hangup();
   }
