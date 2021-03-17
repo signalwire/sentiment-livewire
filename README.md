@@ -20,7 +20,11 @@ If you are running the application on your local computer, we recommend [ngrok](
 
 ### Running the application
 
-There is a sample `docker-compose` setup provided, so after setting up your environment, just run `docker-compose up` and go to [http://localhost:5000](http://localhost:5000).
+To use the application, you will need a SignalWire phone number pointed at the `office` Relay context. That is found within the `Settings` of each phone number on the dashboard. You can refer to our [SignalWire 101](https://signalwire.com/resources/getting-started/signalwire-101) guid for more information.
+
+You will also need to set the `DESTINATION_NUMBER` environment variable (in the `.env` file) to a phone number you can call that will act as the "agent".
+
+There is a sample `docker-compose` setup provided, so after setting up your environment. Once you have `.env` set up, just run `docker-compose up` and go to [http://localhost:5000](http://localhost:5000).
 
 ## Documentation links
 
