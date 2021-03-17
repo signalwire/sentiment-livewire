@@ -16,7 +16,7 @@ This demo also requires a Google Cloud account with [Speech-to-Text](https://clo
 
 ### Ensure connectivity
 
-If you are running the application on your local computer, we recommend [ngrok](https://ngrok.com/) to create a tunnel to your local machine. After starting the tunnel, add the URL you receive from Ngrok in your `.env` file as the `TAP_ADDRESS` value, making sure you add the `/asr` path at the end.
+If you are running the application on your local computer, we recommend [ngrok](https://ngrok.com/) to create a tunnel to your local machine, on the port `5000`. After starting the tunnel, add the URL you receive from Ngrok in your `.env` file as the `TAP_ADDRESS` value, making sure you add the `/asr` path at the end.
 
 ### Running the application
 
