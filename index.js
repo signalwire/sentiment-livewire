@@ -1,3 +1,4 @@
+require('dotenv').config();
 let WSServer = require('ws').Server;
 let server = require('http').createServer();
 let app = require('./lib/web');
