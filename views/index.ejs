@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Real time sentiment analysis</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
 
     <style type="text/css">
@@ -17,82 +17,49 @@
         <a class="navbar-brand" href="#">SignalWire Relay Sentiment Analysis demo</a>
       </div>
     </nav>
-    <div id="output" class="container">
 
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <video id="remoteVideo" style="width: 1px; height: 1px; background-color: #fff;"></video>
+          <div id="callForm" style="display: none;">
+            <form>
+              <div class="form-group">
+                <div class="form-group">
+                  <label for="destination">Call destination</label>
+                  <input type="text" class="form-control" id="destination" aria-describedby="destinationHelp" placeholder="Destination" value="+12027621401">
+                  <small id="destinationHelp" class="form-text text-muted">The call destination.</small>
+                </div>
+                <button type="button" id="callbtn" class="btn btn-primary" onclick="doCall()">Call</button>
+                <button type="button" id="hangupbtn" class="btn btn-danger" onclick="hangUp()" style="display: none;">Hang up</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Status</h5>
+              <span id="status">Ready to connect.</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
+    <div id="output" class="container"></div>
 
-
+    <script src="https://cdn.jsdelivr.net/npm/sip.js@0.15.10/dist/sip-0.15.10.min.js"></script>
     <script type="text/javascript" src="/faye/client.js"></script>
     <script type="text/javascript">
-      function handleStart(message) {
-        var card = createCard('Start');
-        document.getElementById('output').appendChild(card);
-      }
-
-      function handleStop(message) {
-        var card = createCard('Stop');
-        document.getElementById('output').appendChild(card);
-      }
-
-      function handleMedia(message) {
-        var card = createCard('Media');
-
-        var cardBody = document.createElement("div");
-        cardBody.className = 'card-body';
-
-        var classMapping = {
-          'strong_positive': 'bg-success',
-          'weak_positive': 'bg-primary',
-          'neutral': 'bg-secondary',
-          'weak_negative': 'bg-info',
-          'strong_negative': 'bg-danger',
-        }
-
-        var innerBody = '<p><span class="badge ' + classMapping[message.sentiment.interpretation] + ' text-light">' + message.sentiment.interpretation + '</span></p>';
-        innerBody += '<p class="card-text">Score: ' + message.sentiment.score + '</p>';
-        innerBody += '<h5 class="card-title">Entities</h5>';
-
-        message.entities.forEach(entity => {
-          innerBody += '<p class="card-text"><b>Entity:</b> "' + entity.name + '"</p>';
-          innerBody += '<p class="card-text"><b>Relevant:</b> "' + entity.relevant + '"</p>';
-        });
-
-        cardBody.innerHTML = innerBody;
-        card.appendChild(cardBody);
-
-        document.getElementById('output').appendChild(card);
-      }
-
-      function createCard(title) {
-        var newDiv = document.createElement("div");
-        newDiv.className = 'card';
-        
-        var cardTitle = document.createElement("h5");
-        cardTitle.className = 'card-header';
-        cardTitle.innerText = title;
-        newDiv.appendChild(cardTitle);
-
-        return newDiv;
-      }
-
-
-      var client = new Faye.Client('/faye');
-      var subscription = client.subscribe('/updates', function(message) {
-        console.log(message);
-
-        switch (message.event) {
-          case 'start':
-            handleStart(message);
-            break;
-          case 'stop':
-            handleStop(message);
-            break;
-          case 'media':
-            handleMedia(message);
-            break;
-        }
-      });
+      var domain = "<%= sipDomain %>";
+      var user = "<%= sipUsername %>";
+      var pass = "<%= sipPassword %>";
+      var app = "<%= sipApp %>";
     </script>
+
+    <script src="/nlu.js"></script>
+    <script src="/sip_client.js"></script>
   </body>
 </html>

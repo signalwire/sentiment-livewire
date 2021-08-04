@@ -24,7 +24,7 @@ This demo also requires a Google Cloud account with [Speech-to-Text](https://clo
 
 ## Code snippets
 
-You can find the complete code for the application (here)[https://github.com/signalwire/sentiment-livewire].
+You can find the complete code for the application [here](https://github.com/signalwire/sentiment-livewire).
 
 ### The Consumer
 
