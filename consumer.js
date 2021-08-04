@@ -18,7 +18,7 @@ const consumer = new RelayConsumer({
 
     const params = {
       audio_direction: 'listen',
-      target_type: 'wss',
+      target_type: 'ws',
       target_uri: process.env.TAP_ADDRESS,
       codec: 'PCMU'
     }
