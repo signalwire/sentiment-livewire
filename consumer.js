@@ -8,7 +8,9 @@ const consumer = new RelayConsumer({
   contexts: ['edge'],
 
   ready: async ({ client }) => {
-    client.__logger.setLevel(client.__logger.levels.DEBUG)
+    if (process.env.ENABLE_DEBUG) { 
+      client.__logger.setLevel(client.__logger.levels.DEBUG)
+    }
   },
 
   onIncomingCall: async (call) => {
