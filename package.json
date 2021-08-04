@@ -12,7 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@google-cloud/language": "^4.2.2",
-    "@google-cloud/speech": "^4.2.0",
+    "@google-cloud/speech": "^3.6.0",
     "@signalwire/node": "^2.3.4",
     "dotenv": "^8.2.0",
     "ejs": "^3.1.6",

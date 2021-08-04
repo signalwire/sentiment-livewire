@@ -22,7 +22,7 @@ function handleMedia(message) {
     'strong_negative': 'bg-danger',
   }
 
-  var innerBody = '<p><span class="badge ' + classMapping[message.sentiment.interpretation] + ' text-light">' + message.sentiment.interpretation + '</span></p>';
+  var innerBody = '<p>' + message.text + ' <span class="badge ' + classMapping[message.sentiment.interpretation] + ' text-light">' + message.sentiment.interpretation + '</span></p>';
   innerBody += '<p class="card-text">Score: ' + message.sentiment.score + '</p>';
   innerBody += '<h5 class="card-title">Entities</h5>';
 
