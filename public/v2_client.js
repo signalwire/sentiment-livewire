@@ -29,18 +29,15 @@ function connect() {
   client.disableWebcam();
 
   client.on('signalwire.ready', function() {
-    // btnConnect.classList.add('d-none');
-    // btnDisconnect.classList.remove('d-none');
-    connectStatus.innerHTML = 'Ready';
-
-    startCall.disabled = false;
+    setStatus('Registered to SignalWire');
+    show('callForm');
   });
 
   // Update UI on socket close
   client.on('signalwire.socket.close', function() {
-    // btnConnect.classList.remove('d-none');
-    // btnDisconnect.classList.add('d-none');
-    connectStatus.innerHTML = 'Disconnected';
+    setStatus('Ready');
+    show('callbtn');
+    hide('hangupbtn');
   });
 
   // Handle error...
@@ -50,12 +47,12 @@ function connect() {
 
   client.on('signalwire.notification', handleNotification);
 
-  connectStatus.innerHTML = 'Connecting...';
+  setStatus('Connecting...');
   client.connect();
 }
 
 function disconnect() {
-  connectStatus.innerHTML = 'Disconnecting...';
+  setStatus('Disconnecting...');
   client.disconnect();
 }
 
@@ -70,6 +67,7 @@ function handleNotification(notification) {
       break;
     case 'userMediaError':
       // Permission denied or invalid audio/video params on `getUserMedia`
+      console.error("SignalWire userMediaError:", notification);
       break;
   }
 }
@@ -84,7 +82,7 @@ function handleCallUpdate(call) {
     case 'new': // Setup the UI
       break;
     case 'trying': // You are trying to call someone and he's ringing now
-      connectStatus.innerHTML = 'Ringing...';
+      setStatus('Ringing...');
       break;
     case 'recovering': // Call is recovering from a previous session
       if (confirm('Recover the previous call?')) {
@@ -94,27 +92,23 @@ function handleCallUpdate(call) {
       }
       break;
     case 'ringing': // Someone is calling you
-      if (confirm('Pick up the call?')) {
-        currentCall.answer();
-      } else {
-        currentCall.hangup();
-      }
+      // we don't actually need this here
+      console.log('or do we');
       break;
     case 'active': // Call has become active
-      startCall.classList.add('d-none');
-      hangupCall.classList.remove('d-none');
-      hangupCall.disabled = false;
-      connectStatus.innerHTML = 'On call';
+      setStatus('Call is active');
+      hide('callbtn');
+      show('hangupbtn');
+      currentCall._stats();
       break;
     case 'hangup': // Call is over
-      startCall.classList.remove('d-none');
-      hangupCall.classList.add('d-none');
-      hangupCall.disabled = true;
+      setStatus('Ready');
+      show('callbtn');
+      hide('hangupbtn');
+      currentCall._stats(false);
       break;
     case 'destroy': // Call has been destroyed
       currentCall = null;
-      startCall.disabled = false;
-      connectStatus.innerHTML = 'Ready';
       break;
   }
 }
@@ -123,30 +117,40 @@ function handleCallUpdate(call) {
   * Make a new outbound call
 */
 function makeCall() {
+  var destination = document.getElementById('destination').value + '@' + app;
+  console.log('Calling ', destination);
   const params = {
-    destinationNumber: document.getElementById('destinations').value,
+    destinationNumber: destination,
     audio: true,
     video: false,
   };
 
   currentCall = client.newCall(params);
-  startCall.disabled = true;
 }
 
 /**
   * Hangup the currentCall if present
 */
-function hangup() {
+function hangUp() {
   if (currentCall) {
-    currentCall.hangup()
-    startCall.disabled = false;
-  }
-  connectStatus.innerHTML = 'Ready';
+    currentCall.hangup();
+  };
 }
 
-function saveInLocalStorage(e) {
-  var key = e.target.name || e.target.id
-  localStorage.setItem('relay.example.' + key, e.target.value);
+// these are support functions, not part of the main application
+
+function show(selector) {
+  var x = document.getElementById(selector);
+  x.style.display = "block";
+}
+
+function hide(selector) {
+  var x = document.getElementById(selector);
+  x.style.display = "none";
+}
+
+function setStatus(text) {
+  document.getElementById("status").innerHTML = text;
 }
 
 // jQuery document.ready equivalent

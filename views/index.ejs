@@ -22,6 +22,7 @@
       <div class="row">
         <div class="col-md-6">
           <video id="remoteVideo" style="width: 1px; height: 1px; background-color: #fff;"></video>
+          <video id="localVideo" style="width: 1px; height: 1px; background-color: #fff;"></video>
           <div id="callForm" style="display: none;">
             <form>
               <div class="form-group">
@@ -30,7 +31,7 @@
                   <input type="text" class="form-control" id="destination" aria-describedby="destinationHelp" placeholder="Destination" value="<%= defaultDestination %>">
                   <small id="destinationHelp" class="form-text text-muted">The call destination.</small>
                 </div>
-                <button type="button" id="callbtn" class="btn btn-primary" onclick="doCall()">Call</button>
+                <button type="button" id="callbtn" class="btn btn-primary" onclick="makeCall()">Call</button>
                 <button type="button" id="hangupbtn" class="btn btn-danger" onclick="hangUp()" style="display: none;">Hang up</button>
               </div>
             </form>
@@ -51,7 +52,7 @@
     <div id="output" class="container"></div>
 
     <script type="text/javascript" src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/@signalwire/js"></script>
+    <script type="text/javascript" src="https://unpkg.com/@signalwire/js@^1"></script>
     <script type="text/javascript" src="/faye/client.js"></script>
     <script type="text/javascript">
       var project = "<%= projectId %>";

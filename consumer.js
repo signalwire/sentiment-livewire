@@ -5,10 +5,11 @@ const util = require('util')
 const consumer = new RelayConsumer({
   project: process.env.SIGNALWIRE_PROJECT_KEY,
   token: process.env.SIGNALWIRE_TOKEN,
-  contexts: ['edge'],
+  contexts: [process.env.SIGNALWIRE_CONTEXT],
 
   ready: async ({ client }) => {
-    if (process.env.ENABLE_DEBUG) { 
+    if (process.env.ENABLE_DEBUG || true) { 
+      console.log(process.env.SIGNALWIRE_CONTEXT)
       client.__logger.setLevel(client.__logger.levels.DEBUG)
     }
   },
