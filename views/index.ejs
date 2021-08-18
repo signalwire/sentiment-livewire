@@ -50,16 +50,16 @@
 
     <div id="output" class="container"></div>
 
-    <script src="https://cdn.jsdelivr.net/npm/sip.js@0.15.10/dist/sip-0.15.10.min.js"></script>
+    <script type="text/javascript" src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/@signalwire/js"></script>
     <script type="text/javascript" src="/faye/client.js"></script>
     <script type="text/javascript">
-      var domain = "<%= sipDomain %>";
-      var user = "<%= sipUsername %>";
-      var pass = "<%= sipPassword %>";
+      var project = "<%= projectId %>";
+      var token = "<%= token %>";
       var app = "<%= sipApp %>";
     </script>
 
     <script src="/nlu.js"></script>
-    <script src="/sip_client.js"></script>
+    <script src="/v2_client.js"></script>
   </body>
 </html>
